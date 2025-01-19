@@ -14,8 +14,6 @@ class Receipt:
     total: float
 
 # calculate the points based on the rules
-
-# 10 points if the time of purchase is after 2:00pm and before 4:00pm.
 def calculatePoints(receipt:Receipt) -> int:
     totalPoints = 0
 
@@ -58,7 +56,11 @@ def calculatePoints(receipt:Receipt) -> int:
     if curPurchaseDate.day % 2 == 1:
         totalPoints += 6
     
-    return 1
+    # 10 points if the time of purchase is after 2:00pm and before 4:00pm.
+    curPurchaseTime = datetime.strptime(receipt.purchaseTime, '%H:%M').time()
+    if datetime.time(14, 0) <= curPurchaseTime <= datetime.time(16, 0):
+        totalPoints += 10
+    return totalPoints
    
 
 
