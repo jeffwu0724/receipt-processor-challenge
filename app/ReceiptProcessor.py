@@ -12,8 +12,6 @@ class Receipt:
     total: float
 
 # calculate the points based on the rules
-
-# 50 points if the total is a round dollar amount with no cents.
 # 25 points if the total is a multiple of 0.25.
 # 5 points for every two items on the receipt.
 # If the trimmed length of the item description is a multiple of 3, multiply the price by 0.2 and round up to the nearest integer. The result is the number of points earned.
@@ -29,6 +27,12 @@ def calculatePoints(receipt:Receipt) -> int:
             if letter.isalpha():
                  pointsForRuleOne += 1
     totalPoints += pointsForRuleOne
+
+    # 50 points if the total is a round dollar amount with no cents.
+    if receipt.total % 1 == 0:
+         totalPoints += 50
+
+    
     return 1
    
 
