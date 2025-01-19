@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, time
 import math
 from typing import List
 from pydantic import BaseModel
@@ -23,7 +23,7 @@ def calculatePoints(receipt:Receipt) -> int:
 
     # One point for every alphanumeric character in the retailer name.
     pointsForRuleOne = 0
-    for letter in self.retailer:  # Iterate through each character in the retailer name
+    for letter in receipt.retailer: 
             if letter.isalpha():
                  pointsForRuleOne += 1
     totalPoints += pointsForRuleOne
@@ -61,8 +61,9 @@ def calculatePoints(receipt:Receipt) -> int:
         totalPoints += 6
     
     # 10 points if the time of purchase is after 2:00pm and before 4:00pm.
+
     curPurchaseTime = datetime.strptime(receipt.purchaseTime, '%H:%M').time()
-    if datetime.time(14, 0) <= curPurchaseTime <= datetime.time(16, 0):
+    if time(14, 0) <= curPurchaseTime <= time(16, 0):
         totalPoints += 10
     return totalPoints
    
