@@ -1,15 +1,16 @@
 import datetime
 import math
 from typing import List
+from pydantic import BaseModel
 
 id_receipts_map = {}
 id_points_map = {}
 
-class Item:
+class Item(BaseModel):
     shortDescription: str
     price: float
 
-class Receipt:
+class Receipt(BaseModel):
     retailer: str
     purchaseDate: str
     purchaseTime: str
