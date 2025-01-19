@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from mangum import Mangum
 from fastapi.middleware.cors import CORSMiddleware
-from ReceiptProcessor import calculatePoints, Receipt
+from ReceiptProcessor import calculatePoints, Receipt,id_receipts_map, id_points_map
 
 app = FastAPI()
 handler = Mangum(app)
@@ -19,10 +19,11 @@ app.add_middleware(
 async def process_api(receipt: Receipt):
     # generate the id
     receiptId = str(uuid4())
-    calculatePoints(receipt)
-    return {}
+    id_receipts_map[receiptId] = receipt
+    curPoints = calculatePoints(receipt)
+    id_points_map[receiptId] = curPoints
+    return {"id": receiptId}
 
-@app.get("/receipts/{id}/points")
+@app.get("/receipts/{receiptId}/points")
 async def get_point_api(receiptId : str):
-   
-    return {}
+    return {"points": id_points_map[receiptId]}

@@ -2,6 +2,9 @@ import datetime
 import math
 from typing import List
 
+id_receipts_map = {}
+id_points_map = {}
+
 class Item:
     shortDescription: str
     price: float
