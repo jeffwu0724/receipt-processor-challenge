@@ -27,3 +27,7 @@ async def process_api(receipt: Receipt):
 @app.get("/receipts/{receiptId}/points")
 async def get_point_api(receiptId : str):
     return {"points": id_points_map[receiptId]}
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
