@@ -1,3 +1,4 @@
+from uuid import uuid4
 from fastapi import FastAPI
 from mangum import Mangum
 from fastapi.middleware.cors import CORSMiddleware
